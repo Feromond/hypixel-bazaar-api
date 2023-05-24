@@ -51,10 +51,9 @@ impl HistoricalData {
         self.sell_prices.push((self.time, sell_price));
         self.time += 1.;
     
-        if self.buy_prices.len() > 60 {
+        if self.buy_prices.len() > 100 {
             self.buy_prices.remove(0);
             self.sell_prices.remove(0);
-            self.time -=1.;
             self.time_min +=1.;
         }
     }
@@ -121,7 +120,7 @@ async fn main() {
         .execute(terminal::EnterAlternateScreen)
         .expect("Failed to enter alternate screen");
 
-    let mut interval = interval(Duration::from_secs(30));
+    let mut interval = interval(Duration::from_secs(15));
     let mut data = HistoricalData::new();
 
     let ctrl_c = signal::ctrl_c().fuse();
