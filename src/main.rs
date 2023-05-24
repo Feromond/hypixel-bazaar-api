@@ -33,6 +33,7 @@ struct HistoricalData {
     buy_prices: Vec<(f32, f32)>,
     sell_prices: Vec<(f32, f32)>,
     time: f32,
+    time_min: f32,
 }
 
 impl HistoricalData {
@@ -41,6 +42,7 @@ impl HistoricalData {
             buy_prices: vec![],
             sell_prices: vec![],
             time: 0.,
+            time_min: 0.,
         }
     }
     
@@ -53,6 +55,7 @@ impl HistoricalData {
             self.buy_prices.remove(0);
             self.sell_prices.remove(0);
             self.time -=1.;
+            self.time_min +=1.;
         }
     }
     
@@ -100,10 +103,10 @@ async fn fetch_and_print(data: &mut HistoricalData) -> Result<(), Error> {
             println!("Current Sell Order Price: {}", format!("{}", min_buy_price).bright_red());
             
             println!("\nHistorical Buy Prices:");
-            Chart::new(240, 50, 0., data.time).lineplot( Shape::Lines(&data.buy_prices) ).display();
+            Chart::new(240, 50, data.time_min, data.time).lineplot( Shape::Lines(&data.buy_prices) ).display();
 
             println!("\nHistorical Sell Prices:");
-            Chart::new(240, 50, 0., data.time).lineplot( Shape::Lines(&data.sell_prices) ).display();
+            Chart::new(240, 50, data.time_min, data.time).lineplot( Shape::Lines(&data.sell_prices) ).display();
         }
     }
     Ok(())
