@@ -2,7 +2,7 @@ use reqwest::Error;
 use serde_derive::Deserialize;
 use std::collections::HashMap;
 use tokio::time::{interval, Duration};
-use crossterm::terminal::{self, EnterAlternateScreen, LeaveAlternateScreen};
+use crossterm::terminal::{self};
 use crossterm::ExecutableCommand;
 use tokio::signal;
 use futures::FutureExt;  // FutureExt provides the `.fuse()` method.
