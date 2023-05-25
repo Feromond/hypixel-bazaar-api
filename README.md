@@ -2,7 +2,7 @@
 Uses hypixel-api to grab bazzar item product information in near-real-time and displays the data visually in the command line
 
 <!-- TABLE OF CONTENTS -->
-<details>
+
   <summary>Table of Contents</summary>
   <ol>
     <li>
@@ -17,10 +17,7 @@ Uses hypixel-api to grab bazzar item product information in near-real-time and d
     <li>
       <a href="#references">References</a>
     </li>
-    
-    
   </ol>
-</details>
 
 ## About The Project
 
