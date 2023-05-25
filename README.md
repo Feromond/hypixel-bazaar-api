@@ -24,6 +24,8 @@ Uses hypixel-api to grab bazaar item product information in near-real-time and d
 This project aims to provide information on bazaar item prices with frequent updates. Eventually I hope to include long-term persistent historical data which could be used for some ML experimentation and forecasting.
 This is also serving as another Rust learning project for me and I am intending to use Rust for all, or almost all of the project.
 
+![image](https://github.com/Feromond/hypixel-bazaar-api/assets/53460081/3b9db595-da15-41a5-af8c-7f9dc7027cdd)
+
 ## Release Notes:
 
 ### cli-bazaar-product-fetch
