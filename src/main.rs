@@ -111,9 +111,9 @@ async fn fetch_and_print(data: &mut HistoricalData, product_id: &str) -> Result<
         }
     }
 
-    if !product_found {
-        eprintln!("No product with id {} found", product_id);
-    }
+    // if !product_found {
+    //     // eprintln!("No product with id {} found", product_id);
+    // }
 
     Ok(product_found)
 }
@@ -124,27 +124,60 @@ async fn main() {
 
     stdout.execute(terminal::EnterAlternateScreen).expect("Failed to enter alternate screen");
 
-    let mut product_id = String::new();
-    let mut product_found = false;
-
-    while !product_found {
+    let mut product_id;
+    let mut product_found;
+    
+    loop {
+        product_id = String::new();
+        product_found = false;
+        let mut retries = 0;
+    
         print!("Enter the product id: ");
         io::stdout().flush().unwrap();
         io::stdin().read_line(&mut product_id).unwrap();
-
-        product_id = product_id.trim_end().to_uppercase().replace(" ", "_").replace("-","_");
-
-        let mut data = HistoricalData::new();
-        match fetch_and_print(&mut data, &product_id).await {
-            Ok(true) => product_found = true,
-            Ok(false) => {
-                eprintln!("No product with id {} found. Please try again.", product_id);
-                product_id = String::new();
-                continue;
-            },
-            Err(e) => eprintln!("Error: {}", e),
+    
+        let original_product_id = product_id.clone();
+    
+        while !product_found {
+            product_id = original_product_id.clone();
+            product_id = product_id.trim_end().to_uppercase().replace(" ", "_").replace("-","_");
+    
+            if retries > 0 {
+                if retries == 1 {
+                    product_id = format!("{}_ITEM", product_id);
+                } else if retries == 2 {
+                    product_id = format!("ENCHANTMENT_ULTIMATE_{}", product_id);
+                } else if retries == 3{
+                    product_id = format!("ENCHANTMENT_{}", product_id)
+                } else if retries == 4{
+                    product_id = format!("{}_SCROLL", product_id)
+                } else if retries == 5{
+                    product_id = format!("{}_GEM", product_id)
+                }
+                 else {
+                    eprintln!("No product found with these modifications. Please try again with a new product id. If this item has a level (ex. enchanted book) make sure to include it");
+                    break;
+                }
+            }
+    
+            let mut data = HistoricalData::new();
+            match fetch_and_print(&mut data, &product_id).await {
+                Ok(true) => product_found = true,
+                Ok(false) => {
+                    eprintln!("No product with id {} found. Trying with modifications.", original_product_id);
+                    retries += 1;
+                },
+                Err(e) => eprintln!("Error: {}", e),
+            }
+        }
+    
+        if product_found {
+            break;
         }
     }
+    
+    
+    
 
     let mut interval = interval(Duration::from_secs(10));
     let mut data = HistoricalData::new();
