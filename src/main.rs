@@ -153,6 +153,10 @@ async fn main() {
                     product_id = format!("{}_SCROLL", product_id)
                 } else if retries == 5{
                     product_id = format!("{}_GEM", product_id)
+                } else if retries == 6{
+                    product_id = format!("{}_ORE", product_id)
+                } else if retries == 7{
+                    product_id = format!("DUNGEON_{}", product_id)
                 }
                  else {
                     eprintln!("No product found with these modifications. Please try again with a new product id. If this item has a level (ex. enchanted book) make sure to include it");
