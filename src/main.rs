@@ -59,14 +59,14 @@ impl HistoricalData {
 }
 
 async fn fetch_and_print(data: &mut HistoricalData, product_id: &str) -> Result<bool, Error> {
-    let response = reqwest::get("https://api.hypixel.net/skyblock/bazaar")
+    let response: BazaarResponse = reqwest::get("https://api.hypixel.net/skyblock/bazaar")
         .await?
         .json::<BazaarResponse>()
         .await?;
 
     stdout().execute(terminal::Clear(terminal::ClearType::All)).unwrap();
 
-    let mut product_found = false;
+    let mut product_found : bool = false;
 
     for (product_key, product) in response.products {
         if product_key == product_id {
@@ -124,19 +124,19 @@ async fn main() {
 
     stdout.execute(terminal::EnterAlternateScreen).expect("Failed to enter alternate screen");
 
-    let mut product_id;
-    let mut product_found;
+    let mut product_id: String;
+    let mut product_found: bool;
     
     loop {
         product_id = String::new();
         product_found = false;
-        let mut retries = 0;
+        let mut retries: i32 = 0;
     
         print!("Enter the product id: ");
         io::stdout().flush().unwrap();
         io::stdin().read_line(&mut product_id).unwrap();
     
-        let original_product_id = product_id.clone();
+        let original_product_id: String = product_id.clone();
     
         while !product_found {
             product_id = original_product_id.clone();
