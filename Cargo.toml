@@ -2,6 +2,9 @@
 name = "hypixel-api-requests"
 version = "0.1.0"
 edition = "2021"
+authors = ["Jacob Mish <JacobPMish@gmail.com>"]
+description = "A simple terminal based visualization of hypixel bazaar item prices"
+license = "MIT"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -15,3 +18,10 @@ crossterm = "0.19"
 colored = "2.0"
 textplots = "0.4"
 futures = "0.3"
+
+
+[package.metadata.bundle]
+name = "hypixel-api-requests"
+identifier = "io.github.Feromond.hypixel-bazzar-api"
+description = "A simple terminal based visualization of hypixel bazaar item prices"
+icon = ["./icon.png"]
