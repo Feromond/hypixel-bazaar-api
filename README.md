@@ -1,6 +1,8 @@
 # hypixel-bazaar-api
 Uses hypixel-api to grab bazaar item product information in near-real-time and displays the data visually in the command line
 
+# I HAVE CREATED A WAY MORE USEFUL NEW VERSION HERE: https://github.com/Feromond/hypixel-bazaar-tui
+
 <!-- TABLE OF CONTENTS -->
 
   <summary>Table of Contents</summary>
